@@ -18,8 +18,8 @@ public class HomeController {
         return "home/home";
     }
 
-    @GetMapping("/timekeeping")
+    @GetMapping("/workday-explain")
     public String getTimekeepingLayout() {
-        return "timekeeping/timekeeping";
+        return "workday-explain/workday-explain";
     }
 }

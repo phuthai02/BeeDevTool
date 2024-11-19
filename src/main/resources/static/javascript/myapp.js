@@ -7,14 +7,14 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/beedev/home',
             controller: 'HomeController'
         })
-        .when("/timekeeping", {
-            templateUrl: '/beedev/timekeeping',
-            controller: 'TimeKeepingController'
+        .when("/workday-explain", {
+            templateUrl: '/beedev/workday-explain',
+            controller: 'WorkdayExplainController'
         })
         .otherwise({redirectTo: '/home'})
 });
 
 app.controller("HomeController", HomeController);
-app.controller("TimeKeepingController", TimeKeepingController);
+app.controller("WorkdayExplainController", WorkdayExplainController);
 
 

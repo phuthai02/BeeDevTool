@@ -1,4 +1,4 @@
-function TimeKeepingController($scope, $http) {
+function WorkdayExplainController($scope, $http) {
     $scope.selectedFiles = [];
 
     $scope.removeFile = function (index) {
@@ -48,7 +48,7 @@ function TimeKeepingController($scope, $http) {
             formData.append('files', file);
         });
 
-        $http.post('/timekeeping/upload', formData, {
+        $http.post('/workday-explain/upload', formData, {
             headers: { 'Content-Type': undefined },
             transformRequest: angular.identity,
             transformResponse: [function (data) {

@@ -1,6 +1,6 @@
 package bee.dev.tool.controller;
 
-import bee.dev.tool.service.TimeKeepingService;
+import bee.dev.tool.service.workdayexplain.WorkdayExplainService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,12 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("timekeeping")
+@RequestMapping("/workday-explain")
 @Slf4j
-public class TimeKeepingController {
+public class WorkdayExplainController {
 
     @Autowired
-    private TimeKeepingService timeKeepingService;
+    private WorkdayExplainService workdayExplainService;
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFiles(@RequestParam("files") List<MultipartFile> files) {
