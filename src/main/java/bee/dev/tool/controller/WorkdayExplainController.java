@@ -24,10 +24,7 @@ public class WorkdayExplainController {
     @PostMapping("/upload")
     public ResponseEntity<Response> upload(
             @RequestParam("files") List<MultipartFile> files
-    ) throws NoSuchMethodException {
-//        Method method = this.getClass().getMethod("upload", List.class);
-//        Logger.logController(this, method, files);
-
+    ) {
         Response response = workdayExplainService.upload(files);
         return ResponseEntity.ok(response);
     }

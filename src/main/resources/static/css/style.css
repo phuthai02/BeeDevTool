@@ -13,6 +13,34 @@
     margin-top: 8px;
 }
 
+table-striped tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.table-striped tbody tr:nth-child(even) {
+    background-color: #b3e0ff;
+}
+
+.table td, .table th {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px !important;
+    font-weight: normal;
+}
+
+.table td input {
+    width: 100%;
+}
+
+.icon-class {
+    height: 2em;
+    vertical-align: middle;
+}
+
+.table th {
+    background-color: #87CEFA !important;
+}
+
 .loading-screen {
     position: absolute;
     top: 0;
@@ -32,7 +60,6 @@
 .spinner-border {
     margin-bottom: 10px;
 }
-
 
 .marquee p {
     display: inline-block;

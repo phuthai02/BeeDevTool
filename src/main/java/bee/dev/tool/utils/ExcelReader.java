@@ -6,17 +6,31 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ExcelReader {
 
-    public static List<List<String>> readVisibleSheetData(MultipartFile file, int sheetIndex) throws IOException {
-        List<List<String>> sheetData = new ArrayList<>();
+    public static String[][] readVisibleSheetData(MultipartFile file, int sheetIndex) throws IOException {
+        String[][] sheetData = null;
 
         try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
+            FormulaEvaluator formulaEvaluator = workbook.getCreationHelper().createFormulaEvaluator();
+
             if (sheetIndex >= 0 && sheetIndex < workbook.getNumberOfSheets()) {
                 Sheet sheet = workbook.getSheetAt(sheetIndex);
+
+                // Đếm số dòng và số cột để tạo mảng 2 chiều
+                int rowCount = sheet.getPhysicalNumberOfRows();
+                int columnCount = 0;
+
+                // Xác định số cột tối đa trong bảng
+                for (Row row : sheet) {
+                    if (sheet.getColumnWidth(row.getFirstCellNum()) > 0) {
+                        columnCount = Math.max(columnCount, row.getPhysicalNumberOfCells());
+                    }
+                }
+
+                sheetData = new String[rowCount][columnCount];
+                int rowIndex = 0;
 
                 // Đọc các dòng visible
                 for (Row row : sheet) {
@@ -25,9 +39,8 @@ public class ExcelReader {
                         continue; // Bỏ qua dòng bị ẩn
                     }
 
-                    List<String> rowData = new ArrayList<>();
-
                     // Đọc các cell của dòng, chỉ các cột không bị ẩn
+                    int cellIndex = 0;
                     for (Cell cell : row) {
                         // Kiểm tra nếu cột bị ẩn
                         if (sheet.getColumnWidth(cell.getColumnIndex()) == 0) {
@@ -39,9 +52,11 @@ public class ExcelReader {
                             continue; // Bỏ qua cell thuộc vùng gộp
                         }
 
-                        rowData.add(getCellValueAsString(cell));
+                        // Lưu giá trị vào mảng 2 chiều
+                        sheetData[rowIndex][cellIndex] = getCellValueAsString(cell, formulaEvaluator);
+                        cellIndex++;
                     }
-                    sheetData.add(rowData);
+                    rowIndex++;
                 }
             }
         }
@@ -58,7 +73,7 @@ public class ExcelReader {
         return false;
     }
 
-    private static String getCellValueAsString(Cell cell) {
+    private static String getCellValueAsString(Cell cell, FormulaEvaluator formulaEvaluator) {
         switch (cell.getCellType()) {
             case STRING:
                 return cell.getStringCellValue();
@@ -71,9 +86,9 @@ public class ExcelReader {
                     return String.valueOf(cell.getNumericCellValue());
                 }
             case FORMULA:
-                return cell.getCellFormula();
+                return getCellValueAsString(formulaEvaluator.evaluateInCell(cell), formulaEvaluator);
             default:
-                return "";
+                return cell.getStringCellValue();
         }
     }
 }
