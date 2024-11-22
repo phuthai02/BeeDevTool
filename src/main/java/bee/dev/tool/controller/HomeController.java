@@ -19,7 +19,12 @@ public class HomeController {
     }
 
     @GetMapping("/workday-explain")
-    public String getTimekeepingLayout() {
+    public String getWorkdayExplainLayout() {
         return "workday-explain/workday-explain";
+    }
+
+    @GetMapping("/workday-compare")
+    public String getWorkdayCompareLayout() {
+        return "workday-compare/workday-compare";
     }
 }
