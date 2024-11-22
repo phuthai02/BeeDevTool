@@ -28,9 +28,13 @@ const on = (type, el, listener, all = false) => {
 }
 
 if (select('.toggle-sidebar-btn')) {
-    on('click', '.toggle-sidebar-btn', function(e) {
+    on('click', '.toggle-sidebar-btn', function (e) {
         select('body').classList.toggle('toggle-sidebar')
     })
 }
 
 const setLoading = (isLoading) => document.getElementById('loading-screen').style.visibility = isLoading ? 'visible' : 'hidden';
+
+document.getElementById('cancel-btn').addEventListener('click', function () {
+    setLoading(false);
+});

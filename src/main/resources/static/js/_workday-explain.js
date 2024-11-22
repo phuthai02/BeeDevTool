@@ -141,7 +141,7 @@ function WorkdayExplainController($scope, $http, $document) {
     $scope.start = function () {
         if ($scope.selectedFiles.length === 0) {
             Toast.fire({
-                icon: 'warning', title: "Vui lòng tải tệp lên để bắt đầu!"
+                icon: 'warning', title: "Vui lòng tải file lên để bắt đầu!"
             });
             setLoading(false);
             return;

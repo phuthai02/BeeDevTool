@@ -4,7 +4,7 @@ import bee.dev.tool.model.CellStyleConfig;
 import bee.dev.tool.model.Response;
 import bee.dev.tool.model.ResponseCode;
 import bee.dev.tool.model.WorkdayExplain;
-import bee.dev.tool.utils.Common;
+import bee.dev.tool.utils.Utils;
 import bee.dev.tool.utils.ExcelReader;
 import bee.dev.tool.utils.ExcelWriter;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ import java.util.List;
 public class WorkdayExplainServiceImpl implements WorkdayExplainService {
     @Override
     public Response upload(List<MultipartFile> files) {
-        Response response = Common.createResponse(ResponseCode.ERROR);
+        Response response = Utils.createResponse(ResponseCode.ERROR);
         try {
             List<WorkdayExplain> responseData = new ArrayList<>();
             for (MultipartFile file : files) {
@@ -40,7 +40,7 @@ public class WorkdayExplainServiceImpl implements WorkdayExplainService {
                     WorkdayExplain workdayExplain = getWorkdayExplain(data[i]);
                     responseData.add(workdayExplain);
 
-                    response = Common.createResponse(ResponseCode.SUCCESS);
+                    response = Utils.createResponse(ResponseCode.SUCCESS);
                     response.setData(responseData);
                 }
             }
@@ -67,7 +67,7 @@ public class WorkdayExplainServiceImpl implements WorkdayExplainService {
 
     @Override
     public Response export(List<WorkdayExplain> workdayExplains) {
-        Response response = Common.createResponse(ResponseCode.ERROR);
+        Response response = Utils.createResponse(ResponseCode.ERROR);
         try (Workbook workbook = ExcelWriter.createWorkbook()) {
             Sheet sheet = ExcelWriter.createSheet(workbook, "GIẢI TRÌNH CÔNG");
             ExcelWriter.setColumnWidth(sheet, 0, 10);
@@ -133,7 +133,7 @@ public class WorkdayExplainServiceImpl implements WorkdayExplainService {
 
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             workbook.write(bos);
-            response = Common.createResponse(ResponseCode.SUCCESS);
+            response = Utils.createResponse(ResponseCode.SUCCESS);
             response.setData(bos.toByteArray());
         } catch (Exception e) {
             log.info(e.getMessage(), e);
