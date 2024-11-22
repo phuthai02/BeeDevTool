@@ -33,7 +33,8 @@ public class WorkdayExplainServiceImpl implements WorkdayExplainService {
                 for (int i = 0; i < data.length; i++) {
                     if (data[i][0] == null) continue;
                     try {
-                        Double.parseDouble(data[i][0]);
+                        Double id = Double.parseDouble(data[i][0]);
+                        if (id < 1000) continue;
                     } catch (NumberFormatException e) {
                         continue;
                     }

@@ -1,6 +1,7 @@
 function WorkdayExplainController($scope, $http, $document) {
     $scope.selectedFiles = [];
     $scope.workdayExplains = [];
+    $scope.selectedMonth = moment().format('MM');
 
     $scope.removeFile = function (index) {
         $scope.selectedFiles.splice(index, 1);
