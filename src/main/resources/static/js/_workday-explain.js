@@ -176,6 +176,7 @@ function WorkdayExplainController($scope, $http, $document) {
                 });
             }
         }).catch(function (error) {
+            console.log(error);
             Toast.fire({
                 icon: 'error', title: 'Lỗi hệ thống vui lòng liên hệ nhà phát triển'
             });
@@ -229,6 +230,7 @@ function WorkdayExplainController($scope, $http, $document) {
                 });
             }
         }).catch(function (error) {
+            console.log(error);
             Toast.fire({
                 icon: 'error', title: 'Lỗi hệ thống vui lòng liên hệ nhà phát triển'
             });

@@ -24,7 +24,15 @@
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-5 col-md-3 col-lg-2 d-flex justify-content-center">
-                    <select class="form-select form-select-sm" id="month" ng-model="selectedMonth" ng-options="month.value as month.label for month in months">
+                    <select class="form-select form-select-sm fw-bold text-center" style="border: 3px solid black;"
+                            id="month" ng-model="selectedMonth"
+                            ng-options="month.value as month.label for month in months" ng-change="getDaysInMonth()">
+                    </select>
+                </div>
+                <div class="col-5 col-md-3 col-lg-2 d-flex justify-content-center">
+                    <select class="form-select form-select-sm fw-bold text-center" style="border: 3px solid black;"
+                            id="year" ng-model="selectedYear" ng-options="year.value as year.label for year in years"
+                            ng-change="getDaysInMonth()">
                     </select>
                 </div>
             </div>
@@ -44,7 +52,9 @@
                     </div>
                     <div class="row d-flex justify-content-center mt-3 mb-3">
                         <div class="col-12 col-md-10 col-lg-8 d-flex justify-content-between p-0">
-                            <button class="btn btn-warning btn-sm">Tải file mẫu</button>
+                            <button class="btn btn-success btn-sm"
+                                    ng-disabled="systemFiles.length == 0">Xem trước
+                            </button>
                             <button class="btn btn-danger btn-sm"
                                     ng-disabled="systemFiles.length == 0"
                                     ng-click="removeAllFiles('system')">Xoá hết file
@@ -78,7 +88,9 @@
                     </div>
                     <div class="row d-flex justify-content-center mt-3 mb-3">
                         <div class="col-12 col-md-10 col-lg-8 d-flex justify-content-between p-0">
-                            <button class="btn btn-warning btn-sm">Tải file mẫu</button>
+                            <button class="btn btn-success btn-sm"
+                                    ng-disabled="compareFiles.length == 0">Xem trước
+                            </button>
                             <button class="btn btn-danger btn-sm"
                                     ng-disabled="compareFiles.length == 0"
                                     ng-click="removeAllFiles('compare')">Xoá hết file
@@ -102,139 +114,41 @@
                 <div class="col-12 col-md-10 col-lg-8 d-flex justify-content-center">
                     <button class="btn btn-success btn-sm"
                             ng-disabled="systemFiles.length == 0 || compareFiles.length == 0"
-                            ng-click="start()">Bắt đầu đối chiếu</button>
+                            ng-click="start()">Bắt đầu đối chiếu
+                    </button>
                 </div>
-            </div>
-
-            <hr ng-if="workdayExplains.length > 0">
-            <div class="row d-flex justify-content-center mt-4" ng-if="workdayExplains.length > 0">
-                <div class="col-12 col-md-8 col-lg-6 text-center p-0">
-                    <h5 class="fw-bold" style="color: #012970;">ĐỐI SOÁT DỮ LIỆU</h5>
-                </div>
-                <i class="text-primary text-center">
-                    <img src="/img/left-click.png" alt="icon" class="icon-class"/> Click 2 lần vào ô cần chỉnh sửa
-                </i>
-            </div>
-            <div class="mt-3 mb-3 table-responsive" id="table" ng-if="workdayExplains.length > 0">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th style="width: 3%;">#</th>
-                        <th style="width: 5%;">Mã nhân viên</th>
-                        <th style="width: 15%;">Tên nhân viên</th>
-                        <th style="width: 5%;">Bộ phận</th>
-                        <th style="width: 10%;">Ngày</th>
-                        <th style="width: 5%;">Ca</th>
-                        <th style="width: 5%;">Chi tiết ca</th>
-                        <th style="width: 5%;">Công</th>
-                        <th style="width: 5%;">Giờ vào</th>
-                        <th style="width: 5%;">Giờ ra</th>
-                        <th style="width: 5%;">Số giờ</th>
-                        <th style="width: 5%;">Số phút đi muộn</th>
-                        <th style="width: 5%;">Số phút về sớm</th>
-                        <th style="width: 15%;">Lý do</th>
-                        <th style="width: 15%;">Ghi chú</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="item in workdayExplains" class="text-center">
-                        <td>{{ $index + 1 }}</td>
-
-                        <td ng-dblclick="editValue(item, 'staffCode')" ng-if="!item.isEditing.staffCode"
-                            ng-click="saveValueIfEditing(item, 'staffCode')">{{ item.staffCode || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.staffCode"><input ng-model="item.staffCode"
-                                                                    ng-blur="saveValue(item, 'staffCode')"/></td>
-
-                        <td ng-dblclick="editValue(item, 'staffName')" ng-if="!item.isEditing.staffName"
-                            ng-click="saveValueIfEditing(item, 'staffName')">{{ item.staffName || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.staffName"><input ng-model="item.staffName"
-                                                                    ng-blur="saveValue(item, 'staffName')"/></td>
-
-                        <td ng-dblclick="editValue(item, 'staffPart')" ng-if="!item.isEditing.staffPart"
-                            ng-click="saveValueIfEditing(item, 'staffPart')">{{ item.staffPart || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.staffPart"><input ng-model="item.staffPart"
-                                                                    ng-blur="saveValue(item, 'staffPart')"/></td>
-
-                        <td ng-dblclick="editValue(item, 'explainDay')" ng-if="!item.isEditing.explainDay"
-                            ng-click="saveValueIfEditing(item, 'explainDay')">{{ getDay(item.explainDay) || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.explainDay"><input ng-model="item.explainDay"
-                                                                     ng-blur="saveValue(item, 'explainDay')"/></td>
-
-                        <td ng-dblclick="editValue(item, 'shift')" ng-if="!item.isEditing.shift"
-                            ng-click="saveValueIfEditing(item, 'shift')">{{ item.shift || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.shift"><input ng-model="item.shift"
-                                                                ng-blur="saveValue(item, 'shift')"/></td>
-
-                        <td ng-dblclick="editValue(item, 'shiftCode')" ng-if="!item.isEditing.shiftCode"
-                            ng-click="saveValueIfEditing(item, 'shiftCode')">{{ item.shiftCode || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.shiftCode"><input ng-model="item.shiftCode"
-                                                                    ng-blur="saveValue(item, 'shiftCode')"/></td>
-
-                        <td ng-dblclick="editValue(item, 'workDayCode')" ng-if="!item.isEditing.workDayCode"
-                            ng-click="saveValueIfEditing(item, 'workDayCode')">{{ item.workDayCode || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.workDayCode"><input ng-model="item.workDayCode"
-                                                                      ng-blur="saveValue(item, 'workDayCode')"/></td>
-
-                        <td ng-class="{'bg-warning': isLate(item.timeIn)}" ng-dblclick="editValue(item, 'timeIn')"
-                            ng-if="!item.isEditing.timeIn" ng-click="saveValueIfEditing(item, 'timeIn')">{{ item.timeIn
-                            || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.timeIn"><input ng-model="item.timeIn"
-                                                                 ng-blur="saveValue(item, 'timeIn')"/></td>
-
-                        <td ng-class="{'bg-warning': isEarly(item.timeOut, item.explainDay)}"
-                            ng-dblclick="editValue(item, 'timeOut')" ng-if="!item.isEditing.timeOut"
-                            ng-click="saveValueIfEditing(item, 'timeOut')">{{ item.timeOut || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.timeOut"><input ng-model="item.timeOut"
-                                                                  ng-blur="saveValue(item, 'timeOut')"/></td>
-
-                        <td ng-dblclick="editValue(item, 'timeCount')" ng-if="!item.isEditing.timeCount"
-                            ng-click="saveValueIfEditing(item, 'timeCount')">{{ item.timeCount || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.timeCount"><input ng-model="item.timeCount"
-                                                                    ng-blur="saveValue(item, 'timeCount')"/></td>
-
-                        <td ng-dblclick="editValue(item, 'lateMinutes')" ng-if="!item.isEditing.lateMinutes"
-                            ng-click="saveValueIfEditing(item, 'lateMinutes')">{{ item.lateMinutes || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.lateMinutes"><input ng-model="item.lateMinutes"
-                                                                      ng-blur="saveValue(item, 'lateMinutes')"/></td>
-
-                        <td ng-dblclick="editValue(item, 'earlyMinutes')" ng-if="!item.isEditing.earlyMinutes"
-                            ng-click="saveValueIfEditing(item, 'earlyMinutes')">{{ item.earlyMinutes || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.earlyMinutes"><input ng-model="item.earlyMinutes"
-                                                                       ng-blur="saveValue(item, 'earlyMinutes')"/></td>
-
-                        <td ng-dblclick="editValue(item, 'reason')" ng-if="!item.isEditing.reason"
-                            ng-click="saveValueIfEditing(item, 'reason')">{{ item.reason || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.reason"><input ng-model="item.reason"
-                                                                 ng-blur="saveValue(item, 'reason')"/></td>
-
-                        <td ng-dblclick="editValue(item, 'note')" ng-if="!item.isEditing.note"
-                            ng-click="saveValueIfEditing(item, 'note')">{{ item.note || '' }}
-                        </td>
-                        <td ng-if="item.isEditing.note"><input ng-model="item.note" ng-blur="saveValue(item, 'note')"/>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
             <hr>
-            <div class="d-flex justify-content-center mt-3 mb-3" ng-if="workdayExplains.length > 0">
-                <button class="btn btn-success btn-sm"
-                        ng-disabled="selectedFiles.length == 0"
-                        ng-click="export()">Xác nhận và tải về
-                </button>
+            <div class="row d-flex justify-content-center mt-4" ng-if="visibleResponse">
+                <div class="col-12 text-center p-0">
+                    <h5 class="fw-bold" style="color: #012970;">{{titleResponse}}</h5>
+                </div>
+                <div class="col-12 text-center p-0">
+                    <small class="fw-bold" style="color: #012970;">Tỉ lệ thu phóng</small>
+                </div>
+                <div class="text-center mt-1" style="zoom: 0.8;">
+                    <button class="btn btn-secondary btn-sm" ng-click="zoomOut()"><i class="fa-solid fa-minus"></i>
+                    </button>
+                    <span style="font-size: 12px; margin: 0 8px;">{{(zoomLevel * 100).toFixed(0)}}%</span>
+                    <button class="btn btn-secondary btn-sm" ng-click="zoomIn()"><i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+                <div class="mt-3 mb-3 table-responsive" id="table" ng-style="{'zoom': zoomLevel}">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr id="header-staff">
+                            <th style="width: 3%;">#</th>
+                            <th style="width: 10%;">Mã nhân viên</th>
+                            <th style="width: 15%;">Tên nhân viên</th>
+                            <th style="width: 2%;" ng-repeat="item in daysInMonthArray">{{item}}</th>
+                            <th style="width: 5%;">Tổng công</th>
+                        </tr>
+                        </thead>
+                        <tbody id="PT">
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
             </div>
         </div>
         <!-- End Body -->

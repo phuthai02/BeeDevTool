@@ -6,5 +6,5 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface WorkdayCompareService {
-    Response compare(String month, List<MultipartFile> systemFiles, List<MultipartFile> compareFiles);
+    Response compare(Integer daysInMonth, List<MultipartFile> systemFiles, List<MultipartFile> compareFiles);
 }

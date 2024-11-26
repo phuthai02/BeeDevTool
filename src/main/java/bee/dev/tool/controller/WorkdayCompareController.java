@@ -21,11 +21,11 @@ public class WorkdayCompareController {
 
     @PostMapping("/compare")
     public ResponseEntity<Response> compare(
-            @RequestParam("month") String month,
+            @RequestParam("daysInMonth") Integer daysInMonth,
             @RequestParam("systemFiles") List<MultipartFile> systemFiles,
             @RequestParam("compareFiles") List<MultipartFile> compareFiles
     ) {
-        Response response = workdayCompareService.compare(month, systemFiles, compareFiles);
+        Response response = workdayCompareService.compare(daysInMonth, systemFiles, compareFiles);
         return ResponseEntity.ok(response);
     }
 }
