@@ -82,19 +82,19 @@ public class ExcelReader {
     private static String getCellValueAsString(Cell cell, FormulaEvaluator formulaEvaluator) {
         switch (cell.getCellType()) {
             case STRING:
-                return cell.getStringCellValue();
+                return cell.getStringCellValue().trim();
             case BOOLEAN:
-                return String.valueOf(cell.getBooleanCellValue());
+                return String.valueOf(cell.getBooleanCellValue()).trim();
             case NUMERIC:
                 if (DateUtil.isCellDateFormatted(cell)) {
-                    return cell.getDateCellValue().toString();
+                    return cell.getDateCellValue().toString().trim();
                 } else {
-                    return String.valueOf(cell.getNumericCellValue());
+                    return String.valueOf(cell.getNumericCellValue()).trim();
                 }
             case FORMULA:
-                return getCellValueAsString(formulaEvaluator.evaluateInCell(cell), formulaEvaluator);
+                return getCellValueAsString(formulaEvaluator.evaluateInCell(cell), formulaEvaluator).trim();
             default:
-                return cell.getStringCellValue();
+                return cell.getStringCellValue().trim();
         }
     }
 

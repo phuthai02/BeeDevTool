@@ -11,11 +11,11 @@ function WorkdayCompareController($scope, $http, $document) {
 
     $scope.zoomLevel = 0.75;
 
-    $scope.zoomIn = function() {
+    $scope.zoomIn = function () {
         $scope.zoomLevel += 0.05;
     };
 
-    $scope.zoomOut = function() {
+    $scope.zoomOut = function () {
         if ($scope.zoomLevel > 0.05) {
             $scope.zoomLevel -= 0.05;
         }
@@ -25,7 +25,10 @@ function WorkdayCompareController($scope, $http, $document) {
         $scope.daysInMonthArray = [];
         $scope.daysInMonth = moment($scope.selectedYear + '-' + $scope.selectedMonth, 'YYYY-MM').daysInMonth();
         for (var i = 1; i <= $scope.daysInMonth; i++) {
-            $scope.daysInMonthArray.push(i);
+            var day = moment($scope.selectedYear + '-' + $scope.selectedMonth + '-' + i, 'YYYY-MM-DD');
+            let dayOfWeek = day.day();
+            let dayText = dayOfWeek === 0 ? "CN" : "T" + (dayOfWeek + 1);
+            $scope.daysInMonthArray.push(i + ' (' + dayText + ')');
         }
     };
 
@@ -102,94 +105,97 @@ function WorkdayCompareController($scope, $http, $document) {
         }
     };
 
-    $scope.start = function () {
-        if ($scope.systemFiles.length === 0 || $scope.compareFiles.length === 0) {
-            Toast.fire({
-                icon: 'warning', title: "Vui lòng tải cả file hệ thống và file đối chiếu lên để bắt đầu!"
-            });
-            setLoading(false);
-            return;
+    $scope.showToast = function (type, message) {
+        Toast.fire({icon: type, title: message});
+    };
+
+    $scope.handleResponse = function (response, titleResponse, tableId) {
+        if (response.data.code === 1) {
+            $scope.titleResponse = titleResponse;
+            $scope.visibleResponse = true;
+
+            setTimeout(() => {
+                const tbody = document.getElementById(tableId);
+                const rhead = document.getElementById("header-staff");
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+
+                response.data.data.forEach((item, index) => {
+                    $scope.renderTableRow(item, tbody, "HT", "staffSystem", index);
+                    $scope.renderTableRow(item, tbody, "ĐC", "staffCompare", index);
+                    tbody.appendChild(rhead.cloneNode(true));
+                });
+            }, 0);
+
+            $scope.showToast('success', response.data.message);
+        } else {
+            $scope.showToast('error', response.data.message);
         }
+    };
 
-        setLoading(true);
-
-        let formData = new FormData();
-
-        $scope.systemFiles.forEach(function (file) {
-            formData.append('systemFiles', file);
+    $scope.renderTableRow = function (item, tbody, headerText, key, rowIndex) {
+        if (!item[key]) return;
+        const row = document.createElement("tr");
+        const header = document.createElement("td");
+        header.textContent = (!item['staffSystem'] || !item['staffCompare']) ? rowIndex + 1: headerText;
+        row.appendChild(header);
+        item[key].forEach((value, index) => {
+            const cell = document.createElement("td");
+            if (index === 0 || index === item[key].length - 1) value = Number(value);
+            cell.textContent = (index !== item[key].length - 1 && index !== 1) ? value.toString().toUpperCase() : value;
+            row.appendChild(cell);
         });
+        tbody.appendChild(row);
+    };
 
-        $scope.compareFiles.forEach(function (file) {
-            formData.append('compareFiles', file);
-        });
-
+    $scope.process = function (url, formData, titleResponse, tableId) {
         formData.append('daysInMonth', $scope.daysInMonth);
-
-        $http.post('/workday-compare/compare', formData, {
+        $http.post(url, formData, {
             headers: {'Content-Type': undefined},
             transformRequest: angular.identity,
-            transformResponse: [function (data) {
-                return JSON.parse(data);
-            }]
-        }).then(function (response) {
-            if (response.data.code == 1) {
-                $scope.titleResponse = "CÁC ĐỐI TƯỢNG ĐÁNG CHÚ Ý";
-                $scope.visibleResponse = true;
-                setTimeout(() => {
-                    let tbody = document.getElementById("PT");
-                    let rowHeader = document.getElementById("header-staff");
-
-                    if (!rowHeader) {
-                        console.error("Element with ID 'header-staff' not found.");
-                        return;
-                    }
-
-                    response.data.data.forEach(item => {
-                        const rowSystem = document.createElement("tr");
-                        const headerSystem = document.createElement("td");
-                        const rowCompare = document.createElement("tr");
-                        const headerCompare = document.createElement("td");
-
-                        headerSystem.textContent = "HT";
-                        rowSystem.appendChild(headerSystem);
-                        headerCompare.textContent = "ĐC";
-                        rowCompare.appendChild(headerCompare);
-
-                        item.staffSystem.forEach((system, index) => {
-                            const cellSystem = document.createElement("td");
-                            if (index === 0 || index === item.staffSystem.length - 1) system = Number(system);
-                            cellSystem.textContent = (index !== item.staffSystem.length - 1 && index !== 1) ? system.toString().trim().toUpperCase() : system;
-                            rowSystem.appendChild(cellSystem);
-                        });
-
-                        item.staffCompare.forEach((compare, index) => {
-                            const cellCompare = document.createElement("td");
-                            if (index === 0 || index === item.staffCompare.length - 1) compare = Number(compare);
-                            cellCompare.textContent = (index !== item.staffCompare.length - 1 && index !== 1) ? compare.toString().trim().toUpperCase() : compare;
-                            rowCompare.appendChild(cellCompare);
-                        });
-
-                        const clonedHeader = rowHeader.cloneNode(true);
-                        tbody.appendChild(rowSystem);
-                        tbody.appendChild(rowCompare);
-                        tbody.appendChild(clonedHeader);
-                    });
-                }, 0);
-                Toast.fire({
-                    icon: 'success', title: response.data.message
-                });
-            } else {
-                Toast.fire({
-                    icon: 'error', title: response.data.message
-                });
-            }
-        }).catch(function (error) {
-            console.log(error);
-            Toast.fire({
-                icon: 'error', title: 'Lỗi hệ thống vui lòng liên hệ nhà phát triển'
-            });
-        }).finally(function () {
+            transformResponse: [data => JSON.parse(data)]
+        }).then(response => {
+            $scope.handleResponse(response, titleResponse, tableId);
+        }).catch(error => {
+            console.error(error);
+            $scope.showToast('error', 'Lỗi hệ thống vui lòng liên hệ nhà phát triển');
+        }).finally(() => {
             setLoading(false);
         });
+    };
+
+    $scope.reviewSystem = function () {
+        if ($scope.systemFiles.length === 0) {
+            $scope.showToast('warning', "Vui lòng tải file hệ thống lên để bắt đầu!");
+            return;
+        }
+        setLoading(true);
+        const formData = new FormData();
+        $scope.systemFiles.forEach(file => formData.append('systemFiles', file));
+        $scope.process('/workday-compare/review/system', formData, "DỮ LIỆU HỆ THỐNG", "PT");
+    };
+
+    $scope.reviewCompare = function () {
+        if ($scope.compareFiles.length === 0) {
+            $scope.showToast('warning', "Vui lòng tải file đối chiếu lên để bắt đầu!");
+            return;
+        }
+        setLoading(true);
+        const formData = new FormData();
+        $scope.compareFiles.forEach(file => formData.append('compareFiles', file));
+        $scope.process('/workday-compare/review/compare', formData, "DỮ LIỆU ĐỐI CHIẾU", "PT");
+    };
+
+    $scope.start = function () {
+        if ($scope.systemFiles.length === 0 || $scope.compareFiles.length === 0) {
+            $scope.showToast('warning', "Vui lòng tải cả file hệ thống và file đối chiếu lên để bắt đầu!");
+            return;
+        }
+        setLoading(true);
+        const formData = new FormData();
+        $scope.systemFiles.forEach(file => formData.append('systemFiles', file));
+        $scope.compareFiles.forEach(file => formData.append('compareFiles', file));
+        $scope.process('/workday-compare/compare', formData, "CÁC ĐỐI TƯỢNG ĐÁNG CHÚ Ý", "PT");
     };
 }

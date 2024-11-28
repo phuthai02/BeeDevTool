@@ -28,4 +28,23 @@ public class WorkdayCompareController {
         Response response = workdayCompareService.compare(daysInMonth, systemFiles, compareFiles);
         return ResponseEntity.ok(response);
     }
+
+
+    @PostMapping("review/system")
+    public ResponseEntity<Response> system(
+            @RequestParam("daysInMonth") Integer daysInMonth,
+            @RequestParam("systemFiles") List<MultipartFile> systemFiles
+    ) {
+        Response response = workdayCompareService.system(daysInMonth, systemFiles);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("review/compare")
+    public ResponseEntity<Response> compare(
+            @RequestParam("daysInMonth") Integer daysInMonth,
+            @RequestParam("compareFiles") List<MultipartFile> compareFiles
+    ) {
+        Response response = workdayCompareService.compare(daysInMonth, compareFiles);
+        return ResponseEntity.ok(response);
+    }
 }

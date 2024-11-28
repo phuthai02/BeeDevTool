@@ -144,7 +144,6 @@ function WorkdayExplainController($scope, $http, $document) {
             Toast.fire({
                 icon: 'warning', title: "Vui lòng tải file lên để bắt đầu!"
             });
-            setLoading(false);
             return;
         }
 
