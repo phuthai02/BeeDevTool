@@ -170,6 +170,7 @@ public class WorkdayCompareServiceImpl implements WorkdayCompareService {
                     dataStaff[1] = data[i][2];
                     for (int t = 2; t < daysInMonth + 2; t++) dataStaff[t] = data[i][t + 2];
                     dataStaff[daysInMonth + 2] = data[i][3 + daysInMonth + space];
+
                 }
                 dataCompare.put(id, dataStaff);
             } catch (NumberFormatException ignored) {
