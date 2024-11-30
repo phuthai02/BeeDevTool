@@ -9,5 +9,6 @@ public interface WorkdayCompareService {
     Response compare(Integer daysInMonth, List<MultipartFile> systemFiles, List<MultipartFile> compareFiles);
     Response system(Integer daysInMonth, List<MultipartFile> systemFiles);
     Response compare(Integer daysInMonth, List<MultipartFile> compareFiles);
+    Response export(String[][] tableData);
 }
 

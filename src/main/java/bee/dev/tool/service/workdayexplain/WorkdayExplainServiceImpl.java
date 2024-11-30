@@ -70,6 +70,11 @@ public class WorkdayExplainServiceImpl implements WorkdayExplainService {
     public Response export(List<WorkdayExplain> workdayExplains) {
         Response response = Utils.createResponse(ResponseCode.ERROR);
         try (Workbook workbook = ExcelWriter.createWorkbook()) {
+            if (workdayExplains == null || workdayExplains.size() == 0) {
+                response.setMessage("Không có dữ liệu để xuất file.");
+                return response;
+            }
+            
             Sheet sheet = ExcelWriter.createSheet(workbook, "GIẢI TRÌNH CÔNG");
             ExcelWriter.setColumnWidth(sheet, 0, 10);
             ExcelWriter.setColumnWidth(sheet, 1, 30);

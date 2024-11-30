@@ -138,7 +138,7 @@ function WorkdayCompareController($scope, $http, $document) {
         if (!item[key]) return;
         const row = document.createElement("tr");
         const header = document.createElement("td");
-        header.textContent = (!item['staffSystem'] || !item['staffCompare']) ? rowIndex + 1: headerText;
+        header.textContent = (!item['staffSystem'] || !item['staffCompare']) ? rowIndex + 1 : headerText;
         row.appendChild(header);
         item[key].forEach((value, index) => {
             const cell = document.createElement("td");
@@ -197,5 +197,62 @@ function WorkdayCompareController($scope, $http, $document) {
         $scope.systemFiles.forEach(file => formData.append('systemFiles', file));
         $scope.compareFiles.forEach(file => formData.append('compareFiles', file));
         $scope.process('/workday-compare/compare', formData, "CÁC ĐỐI TƯỢNG ĐÁNG CHÚ Ý", "PT");
+    };
+
+    $scope.export = function () {
+        const table = document.querySelector('#table table');
+        const rows = Array.from(table.rows);
+
+        if (rows.length <= 1) {
+            Toast.fire({ icon: 'warning', title: "Không có dữ liệu để xuất file!" });
+            return;
+        }
+
+        setLoading(true);
+
+        const headers = Array.from(rows[0].cells).map(cell => cell.innerText.trim());
+        const dataRows = rows.slice(1)
+            .filter(row => !row.querySelector('th'))
+            .map(row => Array.from(row.cells, cell => cell.innerText.trim()));
+        const tableData = [headers, ...dataRows];
+
+        console.log(tableData);
+
+        $http.post('/workday-compare/export', tableData, {
+            headers: {'Content-Type': 'application/json'},
+            transformResponse: [function (data) {
+                return JSON.parse(data);
+            }]
+        }).then(function (response) {
+            console.log(response.data);
+            if (response.data.code == 1) {
+                const byteCharacters = atob(response.data.data);
+                const byteArray = new Uint8Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteArray[i] = byteCharacters.charCodeAt(i);
+                }
+                const blob = new Blob([byteArray], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                const now = new Date();
+                const hh = String(now.getHours()).padStart(2, '0');
+                const mm = String(now.getMinutes()).padStart(2, '0');
+                const ss = String(now.getSeconds()).padStart(2, '0');
+                const filename = `doi_chieu_cong_${hh}_${mm}_${ss}.xlsx`;
+                link.download = filename;
+                link.click();
+            } else {
+                Toast.fire({
+                    icon: 'error', title: response.data.message
+                });
+            }
+        }).catch(function (error) {
+            console.error(error);
+            Toast.fire({
+                icon: 'error', title: 'Lỗi hệ thống vui lòng liên hệ nhà phát triển'
+            });
+        }).finally(function () {
+            setLoading(false);
+        });
     };
 }
