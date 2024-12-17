@@ -4,8 +4,8 @@ import bee.dev.tool.model.CellStyleConfig;
 import bee.dev.tool.model.Response;
 import bee.dev.tool.model.ResponseCode;
 import bee.dev.tool.model.WorkdayCompare;
-import bee.dev.tool.utils.ExcelReader;
-import bee.dev.tool.utils.ExcelWriter;
+import bee.dev.tool.library.excel.ExcelReader;
+import bee.dev.tool.library.excel.ExcelWriter;
 import bee.dev.tool.utils.Utils;
 import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -13,12 +13,11 @@ import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -44,6 +43,14 @@ public class WorkdayCompareServiceImpl implements WorkdayCompareService {
                     continue;
                 }
 
+                if (dataCompare.length > daysInMonth + 3) {
+                    dataCompare = Arrays.copyOf(dataCompare, dataCompare.length - 1);
+                }
+
+                if (dataSystem.length > daysInMonth + 3) {
+                    dataSystem = Arrays.copyOf(dataSystem, dataSystem.length - 1);
+                }
+
                 String lastCompare = dataCompare[dataCompare.length - 1];
                 String lastSystem = dataSystem[dataSystem.length - 1];
 
@@ -51,7 +58,7 @@ public class WorkdayCompareServiceImpl implements WorkdayCompareService {
                 log.info("ĐC: {}", Arrays.toString(dataCompare));
 
                 if (lastCompare != null && lastSystem != null) {
-                    if (Double.parseDouble(lastCompare) != Double.parseDouble(lastSystem)) {
+                    if (lastCompare.isEmpty() || lastSystem.isEmpty() || Double.parseDouble(lastCompare) != Double.parseDouble(lastSystem)) {
                         WorkdayCompare workdayCompare = new WorkdayCompare();
                         workdayCompare.setStaffCode(String.valueOf(key));
                         workdayCompare.setStaffCompare(dataCompare);
@@ -217,7 +224,7 @@ public class WorkdayCompareServiceImpl implements WorkdayCompareService {
                     for (int t = 2; t < daysInMonth + 2; t++) {
                         String valueA = Objects.toString(data[i][t + 2], "");
                         String valueB = existingData[t];
-                        dataStaff[t] = StringUtils.isNotBlank(valueA) ? valueA : valueB;
+                        dataStaff[t] = StringUtils.isNotBlank(valueA) ? transformValue(valueA) : transformValue(valueB);
                     }
                     Double valueA = Double.parseDouble(existingData[daysInMonth + 2]);
                     Double valueB = Double.parseDouble(Objects.toString(data[i][3 + daysInMonth + space], "0"));
@@ -227,7 +234,7 @@ public class WorkdayCompareServiceImpl implements WorkdayCompareService {
                     dataStaff[0] = Objects.toString(data[i][1], "");
                     dataStaff[1] = Objects.toString(data[i][2], "");
                     for (int t = 2; t < daysInMonth + 2; t++)
-                        dataStaff[t] = Objects.toString(data[i][t + 2], "");
+                        dataStaff[t] = transformValue(Objects.toString(data[i][t + 2], ""));
                     dataStaff[daysInMonth + 2] = Objects.toString(data[i][3 + daysInMonth + space], "0");
                 }
                 dataCompare.put(id, dataStaff);
@@ -236,5 +243,22 @@ public class WorkdayCompareServiceImpl implements WorkdayCompareService {
         }
         String keysInfo = existingKeys.isEmpty() ? "" : ": " + String.join(", ", existingKeys.stream().map(key -> String.valueOf(key.intValue())).toArray(String[]::new));
         log.info("Co " + existingKeys.size() + " ma nhan vien giai trinh cong sai" + keysInfo + ".");
+    }
+
+    private String transformValue(String value) {
+        if (value.matches("X \\(\\d+(\\.\\d+)?\\)")) {
+            String numericPart = value.substring(value.indexOf('(') + 1, value.indexOf(')'));
+            try {
+                double numericValue = Double.parseDouble(numericPart);
+                if (numericValue > 5) {
+                    return "X";
+                } else {
+                    return "X/2";
+                }
+            } catch (NumberFormatException e) {
+                return value;
+            }
+        }
+        return value;
     }
 }

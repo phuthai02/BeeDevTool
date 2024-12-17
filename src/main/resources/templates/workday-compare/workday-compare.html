@@ -7,7 +7,7 @@
                 <nav>
                     <ol class="breadcrumb mt-1">
                         <li class="breadcrumb-item">Trang chủ</li>
-                        <li class="breadcrumb-item active">Đối Chiếu Công</li>
+                        <li class="breadcrumb-item active">Đối chiếu công</li>
                     </ol>
                 </nav>
             </div>
@@ -58,7 +58,7 @@
                             </button>
                             <button class="btn btn-danger btn-sm"
                                     ng-disabled="systemFiles.length == 0"
-                                    ng-click="removeAllFiles('system')">Xoá hết file
+                                    ng-click="removeAllFiles('system')">Chọn lại
                             </button>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                             </button>
                             <button class="btn btn-danger btn-sm"
                                     ng-disabled="compareFiles.length == 0"
-                                    ng-click="removeAllFiles('compare')">Xoá hết file
+                                    ng-click="removeAllFiles('compare')">Chọn lại
                             </button>
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="d-flex justify-content-center mb-3" ng-if="titleResponse === 'CÁC ĐỐI TƯỢNG ĐÁNG CHÚ Ý'">
+                <div class="d-flex justify-content-center mb-3" >
                     <button class="btn btn-success btn-sm"
                             ng-disabled="selectedFiles.length == 0"
                             ng-click="export()">Xác nhận và tải về</button>

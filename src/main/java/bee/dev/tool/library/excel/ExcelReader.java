@@ -1,4 +1,4 @@
-package bee.dev.tool.utils;
+package bee.dev.tool.library.excel;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -80,6 +80,7 @@ public class ExcelReader {
     }
 
     private static String getCellValueAsString(Cell cell, FormulaEvaluator formulaEvaluator) {
+        if (cell == null) return "";
         switch (cell.getCellType()) {
             case STRING:
                 return cell.getStringCellValue().trim();
@@ -93,10 +94,13 @@ public class ExcelReader {
                 }
             case FORMULA:
                 return getCellValueAsString(formulaEvaluator.evaluateInCell(cell), formulaEvaluator).trim();
+            case ERROR:
+                return "Error in cell";
             default:
-                return cell.getStringCellValue().trim();
+                return "";
         }
     }
+
 
     public static Workbook getWorkbook(InputStream inputStream, String fileName) throws IOException {
         Workbook workbook;

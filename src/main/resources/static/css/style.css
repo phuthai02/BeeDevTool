@@ -112,7 +112,7 @@ table-striped tbody tr:nth-child(odd) {
 }
 
 body {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Tahoma", sans-serif;
     background: #f6f9ff;
     color: #444444;
     zoom: 1;
@@ -284,38 +284,38 @@ h6 {
 
 /* Light Backgrounds */
 .bg-primary-light {
-    background-color: #cfe2ff;
-    border-color: #cfe2ff;
+    background-color: #cfe2ff !important;
+    border-color: #cfe2ff !important;
 }
 
 .bg-secondary-light {
-    background-color: #e2e3e5;
-    border-color: #e2e3e5;
+    background-color: #e2e3e5 !important;
+    border-color: #e2e3e5 !important;
 }
 
 .bg-success-light {
-    background-color: #d1e7dd;
-    border-color: #d1e7dd;
+    background-color: #d1e7dd !important;
+    border-color: #d1e7dd !important;
 }
 
 .bg-danger-light {
-    background-color: #f8d7da;
-    border-color: #f8d7da;
+    background-color: #f8d7da !important;
+    border-color: #f8d7da !important;
 }
 
 .bg-warning-light {
-    background-color: #fff3cd;
-    border-color: #fff3cd;
+    background-color: #fff3cd !important;
+    border-color: #fff3cd !important;
 }
 
 .bg-info-light {
-    background-color: #cff4fc;
-    border-color: #cff4fc;
+    background-color: #cff4fc !important;
+    border-color: #cff4fc !important;
 }
 
 .bg-dark-light {
-    background-color: #d3d3d4;
-    border-color: #d3d3d4;
+    background-color: #d3d3d4 !important;
+    border-color: #d3d3d4 !important;
 }
 
 /* Card */

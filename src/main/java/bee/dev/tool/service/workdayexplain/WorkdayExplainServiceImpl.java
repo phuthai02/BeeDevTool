@@ -5,8 +5,8 @@ import bee.dev.tool.model.Response;
 import bee.dev.tool.model.ResponseCode;
 import bee.dev.tool.model.WorkdayExplain;
 import bee.dev.tool.utils.Utils;
-import bee.dev.tool.utils.ExcelReader;
-import bee.dev.tool.utils.ExcelWriter;
+import bee.dev.tool.library.excel.ExcelReader;
+import bee.dev.tool.library.excel.ExcelWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
@@ -55,14 +55,14 @@ public class WorkdayExplainServiceImpl implements WorkdayExplainService {
         WorkdayExplain workdayExplain = new WorkdayExplain();
         workdayExplain.setStaffCode(data[0]);
         workdayExplain.setStaffName(data[1]);
-        workdayExplain.setStaffPart(data[3]);
-        workdayExplain.setExplainDay(data[4]);
-        workdayExplain.setShift("VP");
-        workdayExplain.setShiftCode("SA");
-        workdayExplain.setWorkDayCode("VP");
-        workdayExplain.setTimeIn(data[5]);
-        workdayExplain.setTimeOut(data[7]);
-        workdayExplain.setReason(data[8]);
+        workdayExplain.setStaffPart(data[2]);
+        workdayExplain.setExplainDay(data[3]);
+        workdayExplain.setShift(data[4]);
+        workdayExplain.setShiftCode(data[5]);
+        workdayExplain.setWorkDayCode(data[6]);
+        workdayExplain.setTimeIn(data[7]);
+        workdayExplain.setTimeOut(data[9]);
+        workdayExplain.setReason(data[11]);
         return workdayExplain;
     }
 

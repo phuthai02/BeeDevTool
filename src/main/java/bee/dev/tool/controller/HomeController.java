@@ -27,4 +27,9 @@ public class HomeController {
     public String getWorkdayCompareLayout() {
         return "workday-compare/workday-compare";
     }
+
+    @GetMapping("/workday-summary")
+    public String getWorkdaySummaryLayout() {
+        return "workday-summary/workday-summary";
+    }
 }

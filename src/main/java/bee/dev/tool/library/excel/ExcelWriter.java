@@ -1,4 +1,4 @@
-package bee.dev.tool.utils;
+package bee.dev.tool.library.excel;
 
 import bee.dev.tool.model.CellStyleConfig;
 import org.apache.poi.ss.usermodel.*;
@@ -44,11 +44,12 @@ public class ExcelWriter {
 
         // Thiết lập chữ cho cell
         Font font = row.getSheet().getWorkbook().createFont();
+        font.setFontName("Tahoma");
+        font.setFontHeightInPoints((short) 8);
         font.setColor(config.getTextColor() == null ? IndexedColors.BLACK.getIndex() : config.getTextColor());
-        font.setBold(config.getIsBold() == null ? false : true);
-        font.setItalic(config.getIsItalic() == null ? false : true);
+        font.setBold(config.getIsBold() == null ? false : config.getIsBold());
+        font.setItalic(config.getIsItalic() == null ? false : config.getIsItalic());
         cellStyle.setFont(font);
-
 
         // Thiết lập căn chỉnh vị trí
         if (config.getHorizontalAlignment() != null) {
