@@ -34,32 +34,29 @@
                 </div>
             </div>
             <div class="row d-flex justify-content-center mt-3 mb-3">
-                <div class="col-12 col-md-8 col-lg-6 row d-flex justify-content-between p-0">
+                <div class="col-12 col-md-8 col-lg-6 row m-0 p-0">
                     <button class="btn btn-danger btn-sm col-1"
-                            ng-disabled="selectedFiles.length == 0"
                             ng-click="removeAllFile()"><i class="fa-solid fa-trash-can"></i>
                     </button>
-                    <div class="col-3">
-                        <select class="form-select form-select-sm fw-bold text-center bg-warning-light"
-                                style="border: 3px solid black;"
+                    <div class="col-4">
+                        <select class="form-select form-select-sm fw-bold text-center bg-pink-light"
                                 id="shift" ng-model="selectedShift"
-                                ng-options="shift.value as shift.label for shift in Shifts">
+                                ng-options="shift.value as shift.label for shift in shifts">
                         </select>
                     </div>
                     <div class="col-3">
-                        <select class="form-select form-select-sm fw-bold text-center" style="border: 3px solid black;"
+                        <select class="form-select form-select-sm fw-bold text-center bg-teal-light"
                                 id="month" ng-model="selectedMonth"
-                                ng-options="month.value as month.label for month in months" ng-change="getDaysInMonth()">
+                                ng-options="month.value as month.label for month in months">
                         </select>
                     </div>
                     <div class="col-3">
-                        <select class="form-select form-select-sm fw-bold text-center" style="border: 3px solid black;"
-                                id="year" ng-model="selectedYear" ng-options="year.value as year.label for year in years"
-                                ng-change="getDaysInMonth()">
+                        <select class="form-select form-select-sm fw-bold text-center bg-purple-light"
+                                id="year" ng-model="selectedYear"
+                                ng-options="year.value as year.label for year in years">
                         </select>
                     </div>
-                    <button class="btn btn-success btn-sm col-2"
-                            ng-disabled="selectedFiles.length == 0"
+                    <button class="btn btn-success btn-sm col-1"
                             ng-click="start()"><i class="fa-solid fa-play"></i>
                     </button>
                 </div>

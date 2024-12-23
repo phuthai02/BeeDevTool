@@ -284,39 +284,75 @@ h6 {
 
 /* Light Backgrounds */
 .bg-primary-light {
-    background-color: #cfe2ff !important;
-    border-color: #cfe2ff !important;
+    background-color: #9ecaff !important; /* Màu đậm hơn và sáng hơn */
+    border-color: #9ecaff !important;
 }
 
 .bg-secondary-light {
-    background-color: #e2e3e5 !important;
-    border-color: #e2e3e5 !important;
+    background-color: #c2c3c6 !important; /* Màu đậm hơn và sáng hơn */
+    border-color: #c2c3c6 !important;
 }
 
 .bg-success-light {
-    background-color: #d1e7dd !important;
-    border-color: #d1e7dd !important;
+    background-color: #a3d2c8 !important; /* Màu đậm hơn và sáng hơn */
+    border-color: #a3d2c8 !important;
 }
 
 .bg-danger-light {
-    background-color: #f8d7da !important;
-    border-color: #f8d7da !important;
+    background-color: #f4a1a6 !important; /* Màu đậm hơn và sáng hơn */
+    border-color: #f4a1a6 !important;
 }
 
 .bg-warning-light {
-    background-color: #fff3cd !important;
-    border-color: #fff3cd !important;
+    background-color: #ffe296 !important; /* Màu đậm hơn và sáng hơn */
+    border-color: #ffe296 !important;
 }
 
 .bg-info-light {
-    background-color: #cff4fc !important;
-    border-color: #cff4fc !important;
+    background-color: #9feefc !important; /* Màu đậm hơn và sáng hơn */
+    border-color: #9feefc !important;
 }
 
 .bg-dark-light {
-    background-color: #d3d3d4 !important;
-    border-color: #d3d3d4 !important;
+    background-color: #a5a5a7 !important; /* Màu đậm hơn và sáng hơn */
+    border-color: #a5a5a7 !important;
 }
+
+.bg-purple-light {
+    background-color: #e6d8fc !important; /* Màu tím nhạt */
+    border-color: #e6d8fc !important;
+}
+
+.bg-teal-light {
+    background-color: #d2f4ea !important; /* Màu xanh ngọc nhạt */
+    border-color: #d2f4ea !important;
+}
+
+.bg-pink-light {
+    background-color: #fbd4e8 !important; /* Màu hồng nhạt */
+    border-color: #fbd4e8 !important;
+}
+
+.bg-orange-light {
+    background-color: #ffe4cc !important; /* Màu cam nhạt */
+    border-color: #ffe4cc !important;
+}
+
+.bg-lime-light {
+    background-color: #e6f9d5 !important; /* Màu xanh lá chanh nhạt */
+    border-color: #e6f9d5 !important;
+}
+
+.bg-cyan-light {
+    background-color: #d4f9ff !important; /* Màu xanh cyan nhạt */
+    border-color: #d4f9ff !important;
+}
+
+.bg-gray-light {
+    background-color: #f2f2f2 !important; /* Màu xám nhạt */
+    border-color: #f2f2f2 !important;
+}
+
 
 /* Card */
 .card {

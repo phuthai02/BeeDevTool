@@ -255,4 +255,6 @@ function WorkdayCompareController($scope, $http, $document) {
             setLoading(false);
         });
     };
+
+
 }
