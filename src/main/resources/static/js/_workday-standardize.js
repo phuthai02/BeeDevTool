@@ -3,6 +3,13 @@ function WorkdayStandardizeController($scope, $http, $document) {
     $scope.workdayStandardize = [];
 
     $scope.triggerFileInput = function () {
+        if ($scope.selectedFiles.length > 0) {
+            Toast.fire({
+                icon: 'warning',
+                title: "Chỉ đươ chọn 1 file duy nhất ^^"
+            });
+        }
+
         setLoading(true);
 
         let input = document.createElement('input');
@@ -37,7 +44,7 @@ function WorkdayStandardizeController($scope, $http, $document) {
         if ($scope.selectedFiles.length === 0) {
             Toast.fire({
                 icon: 'warning',
-                title: "Vui lòng tải file lên để bắt đầu!"
+                title: "Vui lòng tải file lên để bắt đầu"
             });
             return;
         }
