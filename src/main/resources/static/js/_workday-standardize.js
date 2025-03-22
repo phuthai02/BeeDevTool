@@ -6,8 +6,9 @@ function WorkdayStandardizeController($scope, $http, $document) {
         if ($scope.selectedFiles.length > 0) {
             Toast.fire({
                 icon: 'warning',
-                title: "Chỉ đươ chọn 1 file duy nhất ^^"
+                title: "Chỉ được chọn 1 file duy nhất"
             });
+            return
         }
 
         setLoading(true);
