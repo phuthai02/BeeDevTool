@@ -4,6 +4,7 @@ import bee.dev.tool.library.excel.ExcelWriter;
 import bee.dev.tool.model.CellStyleConfig;
 import bee.dev.tool.model.Response;
 import bee.dev.tool.model.ResponseCode;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
@@ -18,6 +19,7 @@ public class Utils {
     private static CellStyleConfig CELL_STYLE_HEADER;
     private static CellStyleConfig CELL_STYLE_NORMAL;
 
+    @PostConstruct
     public static void init() {
         // SET STYLE CELL HEADER
         CELL_STYLE_HEADER.setHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -34,6 +36,14 @@ public class Utils {
         final Response response = new Response();
         response.setCode(responseCode.getCode());
         response.setMessage(responseCode.getMessage());
+        return response;
+    }
+
+    public static Response createResponse(final ResponseCode responseCode, Object data) {
+        final Response response = new Response();
+        response.setCode(responseCode.getCode());
+        response.setMessage(responseCode.getMessage());
+        response.setData(data);
         return response;
     }
 
@@ -60,10 +70,6 @@ public class Utils {
                     ExcelWriter.createCell(row, j, cellValue, CELL_STYLE_NORMAL);
                 }
             }
-
-
-
-            
         } catch (Exception e) {
             log.info(e.getMessage(), e);
         }

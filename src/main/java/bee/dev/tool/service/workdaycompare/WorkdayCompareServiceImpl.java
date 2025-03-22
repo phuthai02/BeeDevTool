@@ -176,7 +176,7 @@ public class WorkdayCompareServiceImpl implements WorkdayCompareService {
 
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             workbook.write(bos);
-
+            workbook.close();
             response = Utils.createResponse(ResponseCode.SUCCESS);
             response.setData(bos.toByteArray());
         } catch (Exception e) {
