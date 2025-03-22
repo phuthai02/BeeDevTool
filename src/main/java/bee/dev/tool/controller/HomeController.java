@@ -18,21 +18,6 @@ public class HomeController {
         return "home/home";
     }
 
-    @GetMapping("/workday-explain")
-    public String getWorkdayExplainLayout() {
-        return "workday-explain/workday-explain";
-    }
-
-    @GetMapping("/workday-compare")
-    public String getWorkdayCompareLayout() {
-        return "workday-compare/workday-compare";
-    }
-
-    @GetMapping("/workday-summary")
-    public String getWorkdaySummaryLayout() {
-        return "workday-summary/workday-summary";
-    }
-
     @GetMapping("/workday-standardize")
     public String getWorkdayStandardizeLayout() {
         return "workday-standardize/workday-standardize";

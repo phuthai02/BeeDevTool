@@ -1,6 +1,5 @@
 package bee.dev.tool.service.workdaystandardize;
 
-import bee.dev.tool.library.excel.ExcelReader;
 import bee.dev.tool.model.Response;
 import bee.dev.tool.model.ResponseCode;
 import bee.dev.tool.utils.Utils;
@@ -37,8 +36,7 @@ public class WorkdayStandardizeServiceImpl implements WorkdayStandardizeService 
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             workbook.write(bos);
             workbook.close();
-            response = Utils.createResponse(ResponseCode.SUCCESS);
-            response.setData(bos.toByteArray());
+            response = Utils.createResponse(ResponseCode.SUCCESS, bos.toByteArray());
         } catch (Exception e) {
            log.info(e.getMessage(), e);
         }
