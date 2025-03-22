@@ -32,4 +32,9 @@ public class HomeController {
     public String getWorkdaySummaryLayout() {
         return "workday-summary/workday-summary";
     }
+
+    @GetMapping("/workday-standardize")
+    public String getWorkdayStandardizeLayout() {
+        return "workday-standardize/workday-standardize";
+    }
 }

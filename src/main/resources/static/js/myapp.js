@@ -19,6 +19,10 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/beedev/workday-summary',
             controller: 'WorkdaySummaryController'
         })
+        .when("/workday-standardize", {
+            templateUrl: '/beedev/workday-standardize',
+            controller: 'WorkdayStandardizeController'
+        })
         .otherwise({redirectTo: '/home'})
 });
 
@@ -26,5 +30,4 @@ app.controller("HomeController", HomeController);
 app.controller("WorkdayExplainController", WorkdayExplainController);
 app.controller("WorkdayCompareController", WorkdayCompareController);
 app.controller("WorkdaySummaryController", WorkdaySummaryController);
-
-
+app.controller("WorkdayStandardizeController", WorkdayStandardizeController);
