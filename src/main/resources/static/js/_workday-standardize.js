@@ -1,3 +1,3 @@
-function WorkdayExplainController($scope, $http, $document) {
+function WorkdayStandardizeController($scope, $http, $document) {
 
 }
