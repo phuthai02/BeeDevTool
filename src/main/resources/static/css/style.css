@@ -445,7 +445,7 @@ h6 {
 .breadcrumb {
     font-size: 5px;
     font-family: "Nunito", sans-serif;
-    color: #899bbd;
+    color: var(--border-color);
     font-weight: 600;
 }
 
@@ -1370,4 +1370,271 @@ h6 {
     text-align: center;
     font-size: 13px;
     color: #012970;
+}
+
+/* Pink Theme Color Variables */
+:root {
+    --primary-pink: #f8bbd0;       /* Light pink */
+    --primary-pink-dark: #ec407a;  /* Darker pink for hover/active states */
+    --primary-pink-light: #fce4ec; /* Very light pink for backgrounds */
+    --primary-text: #880e4f;       /* Dark pink for text */
+    --secondary-text: #c2185b;     /* Medium pink for secondary text */
+    --accent-color: #d81b60;       /* Accent pink for important elements */
+    --border-color: #f48fb1;       /* Border color */
+    --hover-bg: #f06292;           /* Hover background */
+    --hover-text: white;           /* Text color on hover */
+}
+
+/* General Styling */
+body {
+    background: var(--primary-pink-light);
+    color: var(--primary-text);
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-pink-dark);
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-text);
+}
+
+/* Header */
+.header {
+    background-color: white;
+    box-shadow: 0px 2px 20px rgba(236, 64, 122, 0.1);
+}
+
+.logo span {
+    color: var(--primary-text);
+}
+
+.header .toggle-sidebar-btn {
+    color: var(--primary-text);
+}
+
+/* Marquee */
+.marquee {
+    color: var(--primary-text);
+}
+
+.marquee p .text-danger {
+    color: var(--accent-color) !important;
+}
+
+.marquee p .text-warning {
+    color: var(--primary-pink-dark) !important;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: white;
+    box-shadow: 0px 0px 20px rgba(236, 64, 122, 0.1);
+}
+
+.sidebar-nav .nav-link {
+    color: var(--accent-color);
+    background: var(--primary-pink-light);
+    transition: all 0.3s ease;
+}
+
+.sidebar-nav .nav-link i {
+    color: var(--accent-color);
+}
+
+.sidebar-nav .nav-link.collapsed {
+    color: var(--primary-text);
+    background: white;
+    border-color: var(--border-color);
+}
+
+.sidebar-nav .nav-link.collapsed i {
+    color: var(--secondary-text);
+}
+
+.sidebar-nav .nav-link:hover {
+    color: var(--hover-text);
+    background: var(--hover-bg);
+    transform: translateY(-2px);
+}
+
+.sidebar-nav .nav-link:hover i {
+    color: var(--hover-text);
+}
+
+/* Enhanced Hover Effects */
+.btn, .nav-link, .card {
+    transition: all 0.3s ease;
+}
+
+.btn:hover, .sidebar-nav .nav-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(236, 64, 122, 0.2);
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 0 15px rgba(236, 64, 122, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0px 0 20px rgba(236, 64, 122, 0.2);
+    transform: translateY(-5px);
+}
+
+.card-title {
+    color: var(--primary-text);
+}
+
+/* Buttons */
+.btn-success {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: var(--primary-pink-dark);
+    border-color: var(--primary-pink-dark);
+    color: white;
+}
+
+.btn-danger {
+    background-color: #e91e63;
+    border-color: #e91e63;
+}
+
+.btn-danger:hover {
+    background-color: #c2185b;
+    border-color: #c2185b;
+}
+
+/* File Upload Area */
+div[ng-click="triggerFileInput()"] {
+    border: 3px dashed var(--border-color) !important;
+    background-color: var(--primary-pink-light);
+    transition: all 0.3s ease;
+}
+
+div[ng-click="triggerFileInput()"] span {
+    color: var(--primary-text);
+}
+
+div[ng-click="triggerFileInput()"] span:hover,
+div[ng-click="triggerFileInput()"] span:hover + i {
+    color: var(--accent-color);
+}
+
+div[ng-click="triggerFileInput()"]:hover {
+    background-color: white;
+    border-color: var(--accent-color) !important;
+    transform: scale(1.01);
+}
+
+/* Table Styling */
+.table-striped tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+.table-striped tbody tr:nth-child(even) {
+    background-color: var(--primary-pink-light);
+}
+
+.table th {
+    background-color: var(--primary-pink) !important;
+    color: var(--primary-text);
+}
+
+/* Background Classes */
+.bg-primary-light {
+    background-color: var(--primary-pink-light) !important;
+    border-color: var(--primary-pink-light) !important;
+}
+
+.bg-success-light {
+    background-color: #f8bbd0 !important;
+    border-color: #f8bbd0 !important;
+}
+
+.bg-danger-light {
+    background-color: #f48fb1 !important;
+    border-color: #f48fb1 !important;
+}
+
+.bg-warning-light {
+    background-color: #fce4ec !important;
+    border-color: #fce4ec !important;
+}
+
+/* Loading Screen */
+.loading-screen {
+    background-color: rgba(252, 228, 236, 0.9);
+    color: var(--primary-text);
+}
+
+#cancel-btn {
+    background-color: white;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+}
+
+#cancel-btn:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* Footer */
+.footer {
+    border-top: 1px solid var(--primary-pink);
+}
+
+.footer .copyright, .footer .credits {
+    color: var(--primary-text);
+}
+
+/* Pagetitle */
+.pagetitle h1 {
+    color: var(--primary-text);
+}
+
+.breadcrumb .active {
+    color: var(--secondary-text) !important;
+}
+
+/* File List */
+.text-success {
+    color: var(--accent-color) !important;
+}
+
+.text-danger {
+    color: #e91e63 !important;
+}
+
+/* Enhanced Animation for Marquee */
+@keyframes marquee {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.marquee p {
+    animation: marquee 15s linear infinite;
+}
+
+/* Remove rounded corners for a more modern look */
+.btn, .card, .form-control {
+    border-radius: 8px;
 }
