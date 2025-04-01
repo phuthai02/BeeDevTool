@@ -14,9 +14,7 @@ public class Utils {
     }
 
     public static Response createResponse(final ResponseCode responseCode, Object data) {
-        final Response response = new Response();
-        response.setCode(responseCode.getCode());
-        response.setMessage(responseCode.getMessage());
+        Response response = createResponse(responseCode);
         response.setData(data);
         return response;
     }
