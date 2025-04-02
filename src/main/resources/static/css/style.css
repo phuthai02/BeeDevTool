@@ -3,16 +3,16 @@
 --------------------------------------------------------------*/
 :root {
     scroll-behavior: smooth;
-    /* Pink Theme Color Variables */
-    --primary-pink: #f8bbd0;       /* Light pink */
-    --primary-pink-dark: #ec407a;  /* Darker pink for hover/active states */
-    --primary-pink-light: #fce4ec; /* Very light pink for backgrounds */
-    --primary-text: #880e4f;       /* Dark pink for text */
-    --secondary-text: #c2185b;     /* Medium pink for secondary text */
-    --accent-color: #d81b60;       /* Accent pink for important elements */
-    --border-color: #f48fb1;       /* Border color */
-    --hover-bg: #f06292;           /* Hover background */
-    --hover-text: white;           /* Text color on hover */
+    /* Soft Pink Theme Color Variables */
+    --primary-pink: #ffe0e6;       /* Hồng nhạt */
+    --primary-pink-dark: #ffb6c1;  /* Hồng nhạt đậm hơn */
+    --primary-pink-light: #fff2f5; /* Hồng rất nhạt */
+    --primary-text: #e75480;       /* Hồng đậm nhưng ít cam */
+    --secondary-text: #f48fb1;     /* Hồng tươi nhạt */
+    --accent-color: #f06292;       /* Hồng tươi */
+    --border-color: #ffd1dc;       /* Hồng nhạt viền */
+    --hover-bg: #ffb6c1;           /* Hồng nhạt khi hover */
+    --hover-text: #fff;            /* Giữ nguyên */
 }
 
 body {
@@ -67,6 +67,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 20px;
     margin-bottom: 0;
     font-weight: 600;
+    cursor: pointer;
     color: var(--primary-text);
 }
 
@@ -505,7 +506,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .accordion-flush .accordion-button:not(.collapsed) {
     box-shadow: none;
-    color: var(--accent-color);
+    color: var(--primary-text);
 }
 
 .accordion-flush .accordion-body {
@@ -518,25 +519,13 @@ h1, h2, h3, h4, h5, h6 {
 .breadcrumb {
     font-size: 5px;
     font-family: "Nunito", sans-serif;
-    color: var(--border-color);
+    color: var(--secondary-text);
     font-weight: 600;
-}
-
-.breadcrumb a {
-    color: #899bbd;
-    transition: 0.3s;
-}
-
-.breadcrumb a:hover {
-    color: #51678f;
-}
-
-.breadcrumb .breadcrumb-item::before {
-    color: #899bbd;
+    cursor: pointer;
 }
 
 .breadcrumb .active {
-    color: var(--secondary-text) !important;
+    color: var(--primary-text) !important;
     font-weight: 600;
 }
 
@@ -644,6 +633,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Logo */
 .logo {
     line-height: 1;
+    cursor: pointer;
 }
 
 @media (min-width: 1200px) {
@@ -909,11 +899,7 @@ h1, h2, h3, h4, h5, h6 {
 .sidebar-nav .nav-link.collapsed {
     color: var(--primary-text);
     background: white;
-    border: 1px solid var(--border-color);
-}
-
-.sidebar-nav .nav-link.collapsed i {
-    color: var(--secondary-text);
+    border: 1px solid var(--hover-bg);
 }
 
 .sidebar-nav .nav-link:hover {
