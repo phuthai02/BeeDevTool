@@ -23,8 +23,14 @@
         </div>
       </div>
       <div class="row d-flex justify-content-center">
-        <div class="col-12 col-md-8 col-lg-6 d-flex align-items-center justify-content-center p-0" style="height: 10vh; border: 3px solid #012970; cursor: pointer;" ng-click="triggerFileInput()">
-          <span class="text-dark">Click vào đây để tải tệp lên (.xls, .xlsx, .xlsm, .csv)</span>
+        <div class="col-12 col-md-8 col-lg-6 d-flex align-items-center justify-content-center p-0 file-dropzone"
+             style="height: 10vh; border: 3px solid #012970; cursor: pointer;"
+             ng-class="{'drag-active': isDragging}"
+             ng-click="triggerFileInput()">
+          <span class="text-dark">
+            <i class="fa-solid fa-upload me-2"></i>
+            {{isDragging ? 'Thả file tại đây' : 'Click hoặc kéo thả file vào đây (.xls, .xlsx, .xlsm, .csv)'}}
+          </span>
         </div>
       </div>
       <div class="row d-flex justify-content-center mt-3 mb-3">
@@ -47,12 +53,7 @@
           </div>
         </div>
       </div>
-
-
     </div>
     <!-- End Body -->
   </div>
 </section>
-
-
-

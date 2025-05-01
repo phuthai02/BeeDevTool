@@ -601,6 +601,15 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
 }
 
+.file-dropzone {
+    transition: all 0.3s ease;
+}
+
+.file-dropzone.drag-active {
+    background-color: #f8f9fa !important;
+    border: 3px dashed #012970 !important;
+}
+
 .header .search-form input {
     border: 0;
     font-size: 14px;

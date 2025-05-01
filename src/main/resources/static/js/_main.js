@@ -10,6 +10,16 @@ const Toast = Swal.mixin({
     }
 });
 
+document.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+}, false);
+
+document.addEventListener('drop', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+}, false);
+
 const select = (el, all = false) => {
     el = el.trim()
     if (all) {
